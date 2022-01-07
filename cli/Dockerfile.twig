@@ -81,6 +81,7 @@ COPY rootfs/ /
 
 RUN COMPOSER_HOME=/home/dev/.composer1 composer-native-1 global require hirak/prestissimo && \
     COMPOSER_HOME=/home/dev/.composer2 composer-native-2 global require repman-io/composer-plugin && \
+    COMPOSER_HOME=/home/dev/.composer2 composer-native-2 global composer config --global allow-plugins.repman-io/composer-plugin true
     echo "alias ll=\"ls -lha\"" >> ~/.bashrc && \
     echo 'eval $(fnm --fnm-dir=/nvm/.fnm env --shell=bash)' >> ~/.bashrc
 
