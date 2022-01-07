@@ -35,9 +35,11 @@ RUN set -x && \
     mkdir -p /opt/phpstorm-coverage && \
     chown -R dev /home/dev /opt/ && \
     cd /tmp && \
-    wget https://github.com/shyim/fnm-alpine/releases/download/1.0.0/fnm && \
+    wget -q https://github.com/shyim/fnm-alpine/releases/download/1.0.0/fnm && \
     mv fnm /usr/local/bin && \
     chmod +x /usr/local/bin/fnm && \
+    wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/local/bin/yq && \
+    chmod +x /usr/local/bin/yq && \
     apk add --no-cache --repository http://dl-3.alpinelinux.org/alpine/v3.13/community gnu-libiconv{% if xdebug %} && \
     {% if xdebug == 2 %}
     echo 'xdebug.remote_enable=1' > /usr/local/etc/php/conf.d/ext-xdebug.ini && \
