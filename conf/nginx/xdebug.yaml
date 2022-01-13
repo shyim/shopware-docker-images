@@ -1,7 +1,6 @@
 images:
   -
     image: 
-      - shyim/shopware-classic-nginx
       - ghcr.io/shyim/shopware-docker/5/nginx
     buildTags: [ 'xdebug2' ]
     dockerFile: nginx/Dockerfile
@@ -36,7 +35,6 @@ images:
         xdebug: 3
   -
     image: 
-      - shyim/shopware-platform-nginx
       - ghcr.io/shyim/shopware-docker/6/nginx
     buildTags: [ 'xdebug2' ]
     dockerFile: nginx/Dockerfile

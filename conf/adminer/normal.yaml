@@ -5,7 +5,6 @@ images:
       - linux/amd64
       - linux/arm64
     image: 
-       - shyim/adminer
        - ghcr.io/shyim/shopware-docker/adminer
     buildTags: [ 'adminer' ]
     dockerFile: adminer/Dockerfile

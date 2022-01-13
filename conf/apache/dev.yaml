@@ -1,7 +1,6 @@
 images:
   -
     image: 
-      - shyim/shopware-classic-apache
       - ghcr.io/shyim/shopware-docker/5/apache
     buildTags: [ 'apache' ]
     dockerFile: apache/Dockerfile
@@ -23,7 +22,6 @@ images:
         phpVersionNumeric: 74
   -
     image: 
-      - shyim/shopware-platform-apache
       - ghcr.io/shyim/shopware-docker/6/apache
     buildTags: [ 'apache' ]
     dockerFile: apache/Dockerfile
