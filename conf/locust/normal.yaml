@@ -1,0 +1,12 @@
+images:
+  -
+    name: Locust
+    platforms:
+      - linux/amd64
+    image: 
+       - ghcr.io/shyim/shopware-docker/locust
+    buildTags: [ 'locust' ]
+    dockerFile: locust/Dockerfile
+    context: locust
+    tags:
+      latest:
