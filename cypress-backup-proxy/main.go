@@ -32,7 +32,7 @@ func restoreHandler(w http.ResponseWriter, r *http.Request)  {
 
 	opts := types.ContainerListOptions{All: true}
 	opts.Filters = filters.NewArgs()
-	opts.Filters.Add("name", "shopware-docker_mysql_1")
+	opts.Filters.Add("name", "shopware-docker-mysql-1")
 
 	containers, err := dClient.ContainerList(context.Background(), opts)
 
@@ -91,7 +91,7 @@ func backupHandler(w http.ResponseWriter, r *http.Request)  {
 
 	opts := types.ContainerListOptions{All: true}
 	opts.Filters = filters.NewArgs()
-	opts.Filters.Add("name", "shopware-docker_mysql_1")
+	opts.Filters.Add("name", "shopware-docker-mysql-1")
 
 	containers, err := dClient.ContainerList(context.Background(), opts)
 
