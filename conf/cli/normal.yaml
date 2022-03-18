@@ -4,6 +4,9 @@ images:
       - ghcr.io/shyim/shopware-docker/cli
     buildTags: [ 'cli' ]
     dockerFile: cli/Dockerfile
+    platforms:
+      - linux/amd64
+      - linux/arm64
     context: cli 
     templates:
       cli/Dockerfile.twig: cli/Dockerfile
@@ -28,6 +31,9 @@ images:
       - ghcr.io/shyim/shopware-docker/cli
     buildTags: [ 'cli-xdebug' ]
     dockerFile: cli/Dockerfile
+    platforms:
+      - linux/amd64
+      - linux/arm64
     context: cli
     variables:
       xdebug: 2
