@@ -11,4 +11,4 @@ steps:
   image: plugins/docker
   settings:
     repo: shyim/adminer
-    context: adminer
+    context: ./adminer
