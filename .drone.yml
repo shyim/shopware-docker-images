@@ -7,8 +7,8 @@ platform:
   arch: arm64
 
 steps:
-- name: build
-  image: golang
-  commands:
-  - uname -a
-  - nproc
+- name: docker  
+  image: plugins/docker
+  settings:
+    repo: shyim/adminer
+    context: adminer
