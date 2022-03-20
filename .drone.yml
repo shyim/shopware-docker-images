@@ -11,3 +11,4 @@ steps:
   image: golang
   commands:
   - uname -a
+  - nproc
