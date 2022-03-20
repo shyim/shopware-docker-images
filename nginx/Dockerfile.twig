@@ -3,7 +3,6 @@ FROM {% block image_from %}php:{{ phpVersion }}-fpm-alpine{% endblock %}
 LABEL org.opencontainers.image.source https://github.com/shyim/shopware-docker
 COPY --from=ghcr.io/shyim/supervisord /usr/local/bin/supervisord /usr/bin/supervisord
 COPY --from=ghcr.io/shyim/shopware-docker/sendmail /sendmail /usr/bin/sendmail
-COPY --from=ghcr.io/shyim/alpine-iconv /usr/lib/preloadable_libiconv.so /usr/lib/preloadable_libiconv.so
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/bin/
 
 ENV TZ=Europe/Berlin \
@@ -71,7 +70,6 @@ RUN cd /opt/ && \
     echo "auto_prepend_file = /opt/php-dump-client-prefixed/prepend.php" > /usr/local/etc/php/conf.d/vardumpserver.ini
 {% endif %}
 
-
 {% if blackfire == true %}
 RUN version=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") \
     && apk add --no-cache bash \
@@ -84,8 +82,6 @@ RUN version=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") \
     && rm -rf /tmp/blackfire /tmp/blackfire-probe.tar.gz \
     && bash -c "$(curl -L https://installer.blackfire.io/installer.sh)"
 {% endif %}
-
-ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so
 
 COPY rootfs/ /
 EXPOSE 80

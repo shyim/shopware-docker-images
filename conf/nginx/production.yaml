@@ -12,9 +12,6 @@ images:
       production: true
       APP_DOCUMENT_ROOT: '/var/www/html'
     tags:
-      php73:
-        phpVersion: '7.3'
-        phpVersionNumeric: 73
       php74:
         phpVersion: '7.4'
         phpVersionNumeric: 74
@@ -34,9 +31,6 @@ images:
       production: true
       APP_DOCUMENT_ROOT: '/var/www/html/public'
     tags:
-      php73:
-        phpVersion: '7.3'
-        phpVersionNumeric: 73
       php74:
         phpVersion: '7.4'
         phpVersionNumeric: 74
