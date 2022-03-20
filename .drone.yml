@@ -11,5 +11,4 @@ steps:
   image: plugins/docker
   commands:
    - whoami
-   - sudo /usr/local/bin/dockerd --data-root /var/lib/docker --host=unix:///var/run/docker.sock
    - docker ps
