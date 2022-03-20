@@ -10,5 +10,5 @@ steps:
 - name: docker  
   image: plugins/docker
   commands:
-   - /usr/local/bin/dockerd --data-root /var/lib/docker --host=unix:///var/run/docker.sock
+   - sudo /usr/local/bin/dockerd --data-root /var/lib/docker --host=unix:///var/run/docker.sock
    - docker ps
