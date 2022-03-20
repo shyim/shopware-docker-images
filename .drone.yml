@@ -9,6 +9,6 @@ platform:
 steps:
 - name: docker  
   image: plugins/docker
-  settings:
-    repo: shyim/adminer
-    context: ./adminer
+  commands:
+   - /usr/local/bin/dockerd --data-root /var/lib/docker --host=unix:///var/run/docker.sock
+   - docker ps
