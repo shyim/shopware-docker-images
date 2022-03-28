@@ -9,6 +9,7 @@ const renderFile = util.promisify(Twig.renderFile);
 let config = YAML.parse(fs.readFileSync(__dirname + '/build.yaml', 'utf8'));
 const command = process.argv[2];
 const selectedTag = process.argv[3] || null;
+const imageSuffix = process.argv[4] || null;
 const defaultVars = { _arch: os.arch() };
 
 const run = async() => {
@@ -77,7 +78,8 @@ const run = async() => {
                 // Build that image
                 for (let imageName of image.image) {
                     try {
-                        await exec('docker', ['buildx', 'build', '--platform', image.platforms.join(','), '--output', 'type=image,push=true', '--tag', `${imageName}:${tagName}`, '--file', image.dockerFile, image.context]);
+                        await exec('docker', ['build', '-t', `${imageName}:${tagName}${imageSuffix}`, '-f', image.dockerFile, image.context]);
+                        await exec('docker', ['push', `${imageName}:${tagName}${imageSuffix}`]);
                     } catch (e) {
                         process.exit(1);
                     }
@@ -91,29 +93,25 @@ const run = async() => {
         }
     }
 
-    if (command === 'pushTag') {
-        for (let image of config.images) {
-            if (tag && !image.buildTags.includes(tag)) {
-                continue;
-            }
-
-            for (let tagName of Object.keys(image.tags)) {
-                if (typeof image.image === 'string') {
-                    image.image = [image.image];
-                }
-
-                for (let imageName of image.image) {
-                    await exec('docker', ['push', `${imageName}:${tagName}`], `Pushing ${imageName}:${tagName}`);
-                }
-            }
-        }
-    }
-
     if (command === 'generateJobs') {
         const ghConfig = {
-            'fail-fast': false,
-            matrix: {
-                include: []
+            amd64: {
+                'fail-fast': false,
+                matrix: {
+                    include: []
+                }
+            },
+            arm64: {
+                'fail-fast': false,
+                matrix: {
+                    include: []
+                }
+            },
+            merge: {
+                'fail-fast': false,
+                matrix: {
+                    include: []
+                }
             }
         };
 
@@ -133,19 +131,50 @@ const run = async() => {
             return buildName(null, imageName);
         };
 
+        let mergeCommands = '';
+
         for (let image of config.images) {
             for (let tagName of Object.keys(image.tags)) {
                 const fqnImageName = image.image[0] + ':' + tagName;
 
-                ghConfig.matrix.include.push({
-                    name: fqnImageName,
-                    os: 'ubuntu-latest',
-                    runs: {
-                        build: `docker buildx create --use --name build --node build --driver-opt network=host; npm install; node build.js buildAndPushCI ${fqnImageName}`
-                    }
-                })
+                // amd64 only build
+                if (image.platforms.length === 1) {
+                    ghConfig.amd64.matrix.include.push({
+                        name: `amd64/${fqnImageName}`,
+                        os: 'ubuntu-latest',
+                        runs: {
+                            build: `npm install; node build.js buildAndPushCI ${fqnImageName}`
+                        }
+                    })
+                } else {
+                    ghConfig.amd64.matrix.include.push({
+                        name: `amd64/${fqnImageName}`,
+                        os: 'ubuntu-latest',
+                        runs: {
+                            build: `npm install; node build.js buildAndPushCI ${fqnImageName} amd64`
+                        }
+                    });
+
+                    ghConfig.arm64.matrix.include.push({
+                        name: `arm64/${fqnImageName}`,
+                        os: 'ARM64',
+                        runs: {
+                            build: `npm install; node build.js buildAndPushCI ${fqnImageName} arm64`
+                        }
+                    })
+
+                    mergeCommands = `${mergeCommands}docker manifest create ${fqnImageName} --amend ${fqnImageName}-amd64 --amend ${fqnImageName}-arm64;`
+                    mergeCommands = `${mergeCommands}docker manifest push ${fqnImageName};`
+                }
             }
         }
+
+        ghConfig.merge.matrix.include.push({
+            name: 'Create Manifest',
+            runs: {
+                merge: mergeCommands
+            }
+        });
 
         console.log(JSON.stringify(ghConfig));
     }
