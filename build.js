@@ -151,7 +151,7 @@ const run = async() => {
                         name: `amd64/${fqnImageName}`,
                         os: 'ubuntu-latest',
                         runs: {
-                            build: `npm install; node build.js buildAndPushCI ${fqnImageName} amd64`
+                            build: `npm install; node build.js buildAndPushCI ${fqnImageName} -amd64`
                         }
                     });
 
@@ -159,12 +159,12 @@ const run = async() => {
                         name: `arm64/${fqnImageName}`,
                         os: 'ARM64',
                         runs: {
-                            build: `npm install; node build.js buildAndPushCI ${fqnImageName} arm64`
+                            build: `npm install; node build.js buildAndPushCI ${fqnImageName} -arm64`
                         }
                     })
 
-                    mergeCommands = `${mergeCommands}docker manifest create ${fqnImageName} --amend ${fqnImageName}-amd64 --amend ${fqnImageName}-arm64;`
-                    mergeCommands = `${mergeCommands}docker manifest push ${fqnImageName};`
+                    mergeCommands = `${mergeCommands}docker manifest create ${fqnImageName} --amend ${fqnImageName}-amd64 --amend ${fqnImageName}-arm64;` + "\n"
+                    mergeCommands = `${mergeCommands}docker manifest push ${fqnImageName};` + "\n"
                 }
             }
         }
