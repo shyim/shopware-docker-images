@@ -83,5 +83,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Login into Github Docker Registery
+        run: echo ${{ secrets.GH_DOCKER_PW }} | docker login ghcr.io -u shyim --password-stdin
+
       - name: Merge
         run: ${{ matrix.runs.merge }}
