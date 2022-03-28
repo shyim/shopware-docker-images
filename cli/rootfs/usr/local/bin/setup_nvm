@@ -6,11 +6,11 @@ if [[ -e /nvm/versions/ ]]; then
 fi
 
 if [[ ! -e /nvm/fmn/ ]]; then
-  fnm --fnm-dir=/nvm/.fnm install 12
+  fnm --fnm-dir=/nvm/.debian-fnm install 12
   # shellcheck disable=SC2046
-  eval $(fnm --fnm-dir=/nvm/.fnm env --shell=bash)
+  eval $(fnm --fnm-dir=/nvm/.debian-fnm env --shell=bash)
   fnm use 12
 else
   # shellcheck disable=SC2046
-  eval $(fnm --fnm-dir=/nvm/.fnm env --shell=bash)
+  eval $(fnm --fnm-dir=/nvm/.debian-fnm env --shell=bash)
 fi

@@ -4,10 +4,12 @@ const Twig = require("twig");
 const util = require('util');
 const child_process = require('child_process');
 const fg = require('fast-glob');
+const os = require('os');
 const renderFile = util.promisify(Twig.renderFile);
 let config = YAML.parse(fs.readFileSync(__dirname + '/build.yaml', 'utf8'));
 const command = process.argv[2];
 const selectedTag = process.argv[3] || null;
+const defaultVars = { _arch: os.arch() };
 
 const run = async() => {
     config = await prepareConfig(config);
@@ -22,7 +24,7 @@ const run = async() => {
                 let cleanupList = [];
     
                 // Render templates
-                let variables = {...config.variables, ... image.variables, ... tag};
+                let variables = {...config.variables, ... image.variables, ... tag, ... defaultVars};
                 variables._image = image;
                 variables._tag = tag;
                 for (let fileName of Object.keys(image.templates)) {

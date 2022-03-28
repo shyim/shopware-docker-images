@@ -1,4 +1,10 @@
-FROM {% block image_from %}php:{{ phpVersion }}-cli-alpine{% endblock %}
+FROM alpine as fnm-downloader
+RUN apk add --no-cache wget unzip
+RUN wget https://github.com/Schniz/fnm/releases/download/v1.31.0/fnm-{% if _arch == 'x64' %}linux{% else %}arm64{% endif %}.zip -O fnm.zip
+RUN unzip fnm.zip
+RUN chmod +x fnm
+
+FROM {% block image_from %}php:{{ phpVersion }}-cli{% endblock %}
 
 LABEL org.opencontainers.image.source https://github.com/shyim/shopware-docker
 ENV XDEBUG_MODE=debug \
@@ -11,22 +17,21 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer-native-2
 
 ENV PHP_DUMP_SERVER_URL=http://dump-server:9009
 
+COPY --from=fnm-downloader /fnm /usr/local/bin
+
 RUN set -x && \
-      apk add --no-cache \
-      nginx \
-      shadow \
-      gettext \
-      unzip \
-      bash \
-      wget \
-      git \
-      zip \
-      bash-completion \
-      patch \
-      mariadb-client \
-      gnu-libiconv \
-      jq \
-      make && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends unzip \
+        bash \
+        bash-completion \
+        wget \
+        git \
+        zip \
+        patch \
+        mariadb-client \
+        jq \
+        make && \
+    rm -rf /var/lib/apt/lists/* && \
     install-php-extensions bcmath gd intl mysqli pdo_mysql sockets bz2 gmp soap zip gmp pcntl posix redis pcov imagick xsl calendar{% if phpVersionNumeric >= 74 %} ffi {% endif %} {% if production %} opcache {% endif %} {% if xdebug %} xdebug{% if phpVersionNumeric >= 71 and xdebug == 2 %}-2.9.8{% endif %} {% endif %} && \
     rm -rf /tmp/* && \
     useradd dev && \
@@ -34,12 +39,8 @@ RUN set -x && \
     mkdir -p /opt/phpstorm-coverage && \
     chown -R dev /home/dev /opt/ && \
     cd /tmp && \
-    wget -q https://github.com/shyim/fnm-alpine/releases/download/1.0.0/fnm && \
-    mv fnm /usr/local/bin && \
-    chmod +x /usr/local/bin/fnm && \
-    wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/local/bin/yq && \
-    chmod +x /usr/local/bin/yq && \
-    apk add --no-cache --repository http://dl-3.alpinelinux.org/alpine/v3.13/community gnu-libiconv{% if xdebug %} && \
+    wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_{% if _arch == 'x64' %}amd64{% else %}arm64{% endif %} -O /usr/local/bin/yq && \
+    chmod +x /usr/local/bin/yq {% if xdebug %} && \
     {% if xdebug == 2 %}
     echo 'xdebug.remote_enable=1' > /usr/local/etc/php/conf.d/ext-xdebug.ini && \
     echo 'xdebug.remote_autostart=0' >> /usr/local/etc/php/conf.d/ext-xdebug.ini && \
@@ -80,9 +81,8 @@ USER dev
 
 COPY rootfs/ /
 
-RUN COMPOSER_HOME=/home/dev/.composer1 composer-native-1 global require hirak/prestissimo && \
-    echo "alias ll=\"ls -lha\"" >> ~/.bashrc && \
-    echo 'eval $(fnm --fnm-dir=/nvm/.fnm env --shell=bash)' >> ~/.bashrc
+RUN echo "alias ll=\"ls -lha\"" >> ~/.bashrc && \
+    echo 'eval $(fnm --fnm-dir=/nvm/.debian-fnm env --shell=bash)' >> ~/.bashrc
 
 WORKDIR /var/www/html
 
