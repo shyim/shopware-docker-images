@@ -26,6 +26,9 @@ images:
       - ghcr.io/shyim/shopware-docker/6/nginx-production
     buildTags: [ 'production' ]
     dockerFile: nginx/Dockerfile
+    platforms:
+      - linux/amd64
+      - linux/arm64
     context: nginx 
     templates:
       nginx/Dockerfile.twig: nginx/Dockerfile

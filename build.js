@@ -9,7 +9,7 @@ const renderFile = util.promisify(Twig.renderFile);
 let config = YAML.parse(fs.readFileSync(__dirname + '/build.yaml', 'utf8'));
 const command = process.argv[2];
 const selectedTag = process.argv[3] || null;
-const imageSuffix = process.argv[4] || null;
+const imageSuffix = process.argv[4] || '';
 const defaultVars = { _arch: os.arch() };
 
 const run = async() => {
