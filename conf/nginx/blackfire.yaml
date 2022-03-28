@@ -4,6 +4,9 @@ images:
       - ghcr.io/shyim/shopware-docker/5/nginx
     buildTags: [ 'blackfire' ]
     dockerFile: nginx/Dockerfile
+    platforms:
+      - linux/amd64
+      - linux/arm64
     context: nginx 
     templates:
       nginx/Dockerfile.twig: nginx/Dockerfile
