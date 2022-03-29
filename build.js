@@ -12,6 +12,8 @@ const selectedTag = process.argv[3] || null;
 const imageSuffix = process.argv[4] || '';
 const defaultVars = { _arch: os.arch() };
 
+console.log(defaultVars)
+
 const run = async() => {
     config = await prepareConfig(config);
     if (command === 'buildTag') {
