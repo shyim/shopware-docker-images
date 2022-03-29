@@ -53,9 +53,6 @@ const run = async() => {
     }
 
     if (command === 'buildAndPushCI') {
-        console.log(defaultVars)
-        process.exit(1);
-
         for (let image of config.images) {    
             for (let tagName of Object.keys(image.tags)) {
                 let tag = image.tags[tagName];
@@ -68,7 +65,7 @@ const run = async() => {
                 let cleanupList = [];
     
                 // Render templates
-                let variables = {...config.variables, ... image.variables, ... tag};
+                let variables = {...config.variables, ... image.variables, ... tag, ... defaultVars};
                 variables._image = image;
                 variables._tag = tag;
                 for (let fileName of Object.keys(image.templates)) {
