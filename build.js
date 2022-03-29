@@ -12,8 +12,6 @@ const selectedTag = process.argv[3] || null;
 const imageSuffix = process.argv[4] || '';
 const defaultVars = { _arch: os.arch() };
 
-console.log(defaultVars)
-
 const run = async() => {
     config = await prepareConfig(config);
     if (command === 'buildTag') {
@@ -55,6 +53,9 @@ const run = async() => {
     }
 
     if (command === 'buildAndPushCI') {
+        console.log(defaultVars)
+        process.exit(1);
+
         for (let image of config.images) {    
             for (let tagName of Object.keys(image.tags)) {
                 let tag = image.tags[tagName];
