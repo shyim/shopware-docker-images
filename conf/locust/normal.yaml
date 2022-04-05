@@ -3,7 +3,6 @@ images:
     name: Locust
     platforms:
       - linux/amd64
-      - linux/arm64
     image: 
        - ghcr.io/shyim/shopware-docker/locust
     buildTags: [ 'locust' ]
