@@ -24,6 +24,7 @@ RUN set -x && \
       nginx \
       shadow \
       gnu-libiconv \
+      icu-data-full \
       socat && \
     install-php-extensions bcmath gd intl mysqli pdo_mysql sockets bz2 gmp soap zip opcache redis calendar {% if phpVersionNumeric < 81 %}imagick {% endif%} {% if phpVersionNumeric >= 74 %} ffi {% endif %} {% if xdebug %} xdebug{% if phpVersionNumeric >= 71 and xdebug == 2 %}-2.9.8{% endif %}{% endif %} && \
     ln -s /usr/local/bin/php /usr/bin/php && \
