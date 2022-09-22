@@ -30,6 +30,14 @@ images:
         phpVersion: '8.0'
         phpVersionNumeric: 80
         xdebug: 3
+      php81-xdebug:
+        phpVersion: '8.1'
+        phpVersionNumeric: 81
+        xdebug: 3
+      php81-xdebug3:
+        phpVersion: '8.1'
+        phpVersionNumeric: 81
+        xdebug: 3
   -
     image: 
       - ghcr.io/shyim/shopware-docker/6/nginx
@@ -60,4 +68,12 @@ images:
       php80-xdebug3:
         phpVersion: '8.0'
         phpVersionNumeric: 80
+        xdebug: 3
+      php81-xdebug:
+        phpVersion: '8.1'
+        phpVersionNumeric: 81
+        xdebug: 3
+      php81-xdebug3:
+        phpVersion: '8.1'
+        phpVersionNumeric: 81
         xdebug: 3
