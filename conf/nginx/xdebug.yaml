@@ -15,13 +15,6 @@ images:
       xdebug: 2
       APP_DOCUMENT_ROOT: '/var/www/html'
     tags:
-      php74-xdebug:
-        phpVersion: '7.4'
-        phpVersionNumeric: 74
-      php74-xdebug3:
-        phpVersion: '7.4'
-        phpVersionNumeric: 74
-        xdebug: 3
       php80-xdebug:
         phpVersion: '8.0'
         phpVersionNumeric: 80
@@ -50,13 +43,6 @@ images:
       xdebug: 2
       APP_DOCUMENT_ROOT: '/var/www/html/public'
     tags:
-      php74-xdebug:
-        phpVersion: '7.4'
-        phpVersionNumeric: 74
-      php74-xdebug3:
-        phpVersion: '7.4'
-        phpVersionNumeric: 74
-        xdebug: 3
       php80-xdebug:
         phpVersion: '8.0'
         phpVersionNumeric: 80

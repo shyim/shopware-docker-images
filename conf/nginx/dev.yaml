@@ -14,9 +14,6 @@ images:
       nginx/Dockerfile.twig: nginx/Dockerfile
       nginx/10-classic.conf: nginx/rootfs/etc/nginx/sites-enabled/www.conf
     tags:
-      php74:
-        phpVersion: '7.4'
-        phpVersionNumeric: 74
       php80:
         phpVersion: '8.0'
         phpVersionNumeric: 80
@@ -38,9 +35,6 @@ images:
       nginx/Dockerfile.twig: nginx/Dockerfile
       nginx/10-platform.conf: nginx/rootfs/etc/nginx/sites-enabled/www.conf
     tags:
-      php74:
-        phpVersion: '7.4'
-        phpVersionNumeric: 74
       php80:
         phpVersion: '8.0'
         phpVersionNumeric: 80

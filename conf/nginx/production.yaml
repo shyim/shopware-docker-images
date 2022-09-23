@@ -15,9 +15,6 @@ images:
       production: true
       APP_DOCUMENT_ROOT: '/var/www/html'
     tags:
-      php74:
-        phpVersion: '7.4'
-        phpVersionNumeric: 74
       php80:
         phpVersion: '8.0'
         phpVersionNumeric: 80
@@ -37,9 +34,6 @@ images:
       production: true
       APP_DOCUMENT_ROOT: '/var/www/html/public'
     tags:
-      php74:
-        phpVersion: '7.4'
-        phpVersionNumeric: 74
       php80:
         phpVersion: '8.0'
         phpVersionNumeric: 80
