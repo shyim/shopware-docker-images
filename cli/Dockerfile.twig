@@ -20,7 +20,7 @@ ENV PHP_DUMP_SERVER_URL=http://dump-server:9009
 COPY --from=fnm-downloader /fnm /usr/local/bin
 
 RUN set -x && \
-    apt-get update && \
+    curl -1sLf 'https://dl.cloudsmith.io/public/friendsofshopware/stable/setup.deb.sh' | sudo -E bash && \
     apt-get install -y --no-install-recommends unzip \
         bash \
         bash-completion \
@@ -30,6 +30,7 @@ RUN set -x && \
         patch \
         mariadb-client \
         jq \
+        shopware-cli \
         make && \
     rm -rf /var/lib/apt/lists/* && \
     install-php-extensions bcmath gd intl mysqli pdo_mysql pdo_pgsql sockets bz2 gmp soap zip gmp pcntl posix redis pcov imagick xsl calendar{% if phpVersionNumeric >= 74 %} ffi {% endif %} {% if production %} opcache {% endif %} {% if xdebug %} xdebug{% if phpVersionNumeric >= 71 and xdebug == 2 %}-2.9.8{% endif %} {% endif %} && \
