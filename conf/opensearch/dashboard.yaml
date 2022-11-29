@@ -1,8 +1,6 @@
 images:
   -
     name: Opensearch Dashboard
-    platforms:
-      - linux/amd64
     image: 
       - ghcr.io/shyim/shopware-docker/opensearchproject/dashboard
     buildTags: [ 'opensearch' ]

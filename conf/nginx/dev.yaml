@@ -4,9 +4,6 @@ images:
       - ghcr.io/shyim/shopware-docker/5/nginx
     buildTags: [ 'nginx' ]
     dockerFile: nginx/Dockerfile
-    platforms:
-      - linux/amd64
-      - linux/arm64
     context: nginx
     variables:
       APP_DOCUMENT_ROOT: '/var/www/html'
@@ -25,9 +22,6 @@ images:
       - ghcr.io/shyim/shopware-docker/6/nginx
     buildTags: [ 'nginx' ]
     dockerFile: nginx/Dockerfile
-    platforms:
-      - linux/amd64
-      - linux/arm64
     context: nginx
     variables:
       APP_DOCUMENT_ROOT: '/var/www/html/public'
