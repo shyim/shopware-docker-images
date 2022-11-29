@@ -2,7 +2,10 @@ name: Build Docker Images
 
 on:
   push:
-    branches: main
+    branches:
+      - main
+    tags-ignore:
+      - "*"
   schedule:
     - cron: 0 0 * * 0
   workflow_dispatch:
@@ -14,17 +17,17 @@ defaults:
 jobs:
   generate-jobs:
     name: Generate Jobs
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     if: "!contains(github.event.head_commit.message, '[build skip]')"
     outputs:
       strategy: ${{ steps.generate-jobs.outputs.strategy }}
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Setup Node.js environment
-      uses: actions/setup-node@v1.4.4
+      uses: actions/setup-node@v3
       with:
-        node-version: '12.x'
+        node-version: '16.x'
 
     - id: generate-jobs
       name: Generate Jobs
@@ -37,16 +40,16 @@ jobs:
     needs: generate-jobs
     strategy: ${{ fromJson(needs.generate-jobs.outputs.strategy).amd64 }}
     name: ${{ matrix.name }}
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Login into Github Docker Registery
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: Set up Docker Buildx
         id: buildx
-        uses: docker/setup-buildx-action@v1
+        uses: docker/setup-buildx-action@v2
 
       - name: Build ${{ matrix.name }}
         run: ${{ matrix.runs.build }}
@@ -57,14 +60,14 @@ jobs:
     name: ${{ matrix.name }}
     runs-on: ARM64
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Login into Github Docker Registery
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: Set up Docker Buildx
         id: buildx
-        uses: docker/setup-buildx-action@v1
+        uses: docker/setup-buildx-action@v2
 
       - name: Build ${{ matrix.name }}
         run: ${{ matrix.runs.build }}
@@ -79,9 +82,9 @@ jobs:
       - generate-jobs
       - build-amd64
       - build-arm64
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Login into Github Docker Registery
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
