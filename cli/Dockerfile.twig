@@ -12,7 +12,7 @@ ENV XDEBUG_MODE=debug \
 ENV PS1 '${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u\[\033[01;33m\]@\[\033[01;36m\]\h \[\033[01;33m\]\w \[\033[01;35m\]\$ \[\033[00m\]'
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/bin/
 COPY --from=ghcr.io/shyim/shopware-docker/sendmail /sendmail /usr/bin/sendmail
-COPY --from=ghcr.io/FriendsOfShopware/shopware-cli /usr/local/bin/shopware-cli /usr/local/bin/shopware-cli
+COPY --from=ghcr.io/friendsofshopware/shopware-cli /usr/local/bin/shopware-cli /usr/local/bin/shopware-cli
 COPY --from=composer:1 /usr/bin/composer /usr/bin/composer-native-1
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer-native-2
 
