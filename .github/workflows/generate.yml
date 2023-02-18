@@ -54,40 +54,40 @@ jobs:
       - name: Build ${{ matrix.name }}
         run: ${{ matrix.runs.build }}
 
-  build-arm64:
-    needs: generate-jobs
-    strategy: ${{ fromJson(needs.generate-jobs.outputs.strategy).arm64 }}
-    name: ${{ matrix.name }}
-    runs-on: ARM64
-    steps:
-      - uses: actions/checkout@v3
+#   build-arm64:
+#     needs: generate-jobs
+#     strategy: ${{ fromJson(needs.generate-jobs.outputs.strategy).arm64 }}
+#     name: ${{ matrix.name }}
+#     runs-on: ARM64
+#     steps:
+#       - uses: actions/checkout@v3
 
-      - name: Login into Github Docker Registery
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+#       - name: Login into Github Docker Registery
+#         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
-      - name: Set up Docker Buildx
-        id: buildx
-        uses: docker/setup-buildx-action@v2
+#       - name: Set up Docker Buildx
+#         id: buildx
+#         uses: docker/setup-buildx-action@v2
 
-      - name: Build ${{ matrix.name }}
-        run: ${{ matrix.runs.build }}
+#       - name: Build ${{ matrix.name }}
+#         run: ${{ matrix.runs.build }}
 
-      - name: Cleanup
-        run: docker system prune -a -f
+#       - name: Cleanup
+#         run: docker system prune -a -f
 
-  build-manifest:
-    name: Generate Manifest file
-    strategy: ${{ fromJson(needs.generate-jobs.outputs.strategy).merge }}
-    needs:
-      - generate-jobs
-      - build-amd64
-      - build-arm64
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
+#   build-manifest:
+#     name: Generate Manifest file
+#     strategy: ${{ fromJson(needs.generate-jobs.outputs.strategy).merge }}
+#     needs:
+#       - generate-jobs
+#       - build-amd64
+#       - build-arm64
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v3
 
-      - name: Login into Github Docker Registery
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+#       - name: Login into Github Docker Registery
+#         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
-      - name: Merge
-        run: ${{ matrix.runs.merge }}
+#       - name: Merge
+#         run: ${{ matrix.runs.merge }}
