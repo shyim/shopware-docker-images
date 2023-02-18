@@ -37,3 +37,6 @@ images:
       php81-blackfire:
         phpVersion: '8.1'
         phpVersionNumeric: 81
+      php82-blackfire:
+        phpVersion: '8.2'
+        phpVersionNumeric: 82

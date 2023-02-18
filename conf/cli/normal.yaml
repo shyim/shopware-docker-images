@@ -14,6 +14,9 @@ images:
       php81:
         phpVersion: '8.1'
         phpVersionNumeric: 81
+      php82:
+        phpVersion: '8.2'
+        phpVersionNumeric: 82
   -
     image: 
       - ghcr.io/shyim/shopware-docker/cli
@@ -34,3 +37,6 @@ images:
       php81-xdebug:
         phpVersion: '8.1'
         phpVersionNumeric: 81
+      php82-xdebug:
+        phpVersion: '8.2'
+        phpVersionNumeric: 82
