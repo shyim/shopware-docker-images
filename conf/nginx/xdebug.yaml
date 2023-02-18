@@ -49,3 +49,7 @@ images:
         phpVersion: '8.1'
         phpVersionNumeric: 81
         xdebug: 3
+      php82-xdebug:
+        phpVersion: '8.2'
+        phpVersionNumeric: 82
+        xdebug: 3
