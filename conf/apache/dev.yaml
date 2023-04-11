@@ -26,6 +26,9 @@ images:
       apache/Dockerfile.twig: apache/Dockerfile
       apache/platform-vhost.conf: apache/rootfs/etc/apache2/conf.d/vhost.conf
     tags:
-      php74:
+      php80:
         phpVersion: '8.0'
         phpVersionNumeric: 80
+      php81:
+        phpVersion: '8.1'
+        phpVersionNumeric: 81
