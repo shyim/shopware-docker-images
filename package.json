@@ -6,7 +6,7 @@
   "dependencies": {
     "fast-glob": "^3.2.2",
     "twig": "^1.15.1",
-    "yaml": "^1.9.0"
+    "yaml": "^2.2.2"
   },
   "devDependencies": {},
   "scripts": {
