@@ -149,7 +149,7 @@ const run = async() => {
                 } else {
                     ghConfig.amd64.matrix.include.push({
                         name: `amd64/${fqnImageName}`,
-                        os: 'ubuntu-latest',
+                        os: 'ubuntu-24.04',
                         runs: {
                             build: `npm install; node build.js buildAndPushCI ${fqnImageName} -amd64`
                         }
@@ -157,7 +157,7 @@ const run = async() => {
 
                     ghConfig.arm64.matrix.include.push({
                         name: `arm64/${fqnImageName}`,
-                        os: 'ARM64',
+                        os: 'ubuntu-24.04-arm',
                         runs: {
                             build: `npm install; node build.js buildAndPushCI ${fqnImageName} -arm64`
                         }
