@@ -38,3 +38,9 @@ images:
       php82:
         phpVersion: '8.2'
         phpVersionNumeric: 82
+      php83:
+        phpVersion: '8.3'
+        phpVersionNumeric: 83
+      php84:
+        phpVersion: '8.4'
+        phpVersionNumeric: 83
