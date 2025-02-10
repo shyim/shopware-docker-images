@@ -1,4 +1,4 @@
-FROM mysql:{{ mysqlVersion }}
+FROM mysql:{{ mysqlVersion }}.0
 
 LABEL org.opencontainers.image.source https://github.com/shyim/shopware-docker
 ADD dev.cnf /etc/mysql/conf.d/dev.cnf
