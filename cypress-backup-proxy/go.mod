@@ -2,7 +2,7 @@ module cypress-backup-proxy
 
 go 1.23.0
 
-require github.com/docker/docker v26.1.5+incompatible
+require github.com/docker/docker v28.0.0+incompatible
 
 require (
 	github.com/Azure/go-ansiterm v0.0.0-20210617225240-d185dfc1b5a1 // indirect
