@@ -5,7 +5,7 @@
   "main": "build.js",
   "dependencies": {
     "fast-glob": "^3.2.2",
-    "twig": "^1.15.1",
+    "twig": "^2.0.0",
     "yaml": "^2.8.3"
   },
   "devDependencies": {},
